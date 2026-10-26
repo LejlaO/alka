@@ -1,0 +1,10 @@
+# what the build writes
+target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# temporary files
+*.tmp
+*.new
