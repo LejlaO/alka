@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alka</title>
+<meta name="description" content="Alka runs Java plugins and managers from config files, and has a Studio that shows how they are connected.">
+<meta name="theme-color" content="#f8f2e6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='15' cy='20' r='11' fill='none' stroke='%23c9731f' stroke-width='4'/%3E%3Ccircle cx='25' cy='20' r='11' fill='none' stroke='%23a8442f' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">Alka</a>
+    <nav aria-label="Main">
+      <a href="https://github.com/LejlaO/alka/tree/main/docs">Docs</a>
+      <a href="https://github.com/LejlaO/alka">GitHub</a>
+      <a href="https://github.com/LejlaO/alka/releases/latest">Download</a>
+    </nav>
+  </div>
+</header>
+<div class="band" aria-hidden="true"></div>
+
+<main class="wrap">
+
+<section class="intro">
+  <h1>Alka runs Java plugins from config files, and shows them in a diagram.</h1>
+  <p>You write small components as plain jars. A config file says which ones to load and how they are connected. Alka Studio draws that as a diagram, edits the settings, starts and stops the service and shows its log.</p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/LejlaO/alka/releases/latest">Download 0.1.0</a> <a class="btn" href="https://github.com/LejlaO/alka/tree/main/docs">Read the docs</a></p>
+  <p class="note">Needs Java 25. It has only been tried on Windows. 0.1.0 is the first public version, so things can still change.</p>
+  <figure>
+    <div class="shot"><img src="img/studio-diagram.png" width="2160" height="1350" alt="Alka Studio with the demo service running: two plugins and a manager in a diagram, the log below"></div>
+    <figcaption>The Studio with the demo service running.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <p>A <b>plugin</b> does the work: it reads something, answers something, calls something, and sends events on to other plugins.</p>
+  <p>A <b>manager</b> holds something that plugins share, like a connection or a cache. Which manager a plugin gets is decided in the config, not in the code.</p>
+  <p>Each of them is a jar. A <b>service</b> is a few lines of config that name the jars and connect them. The settings of a component are declared on its class, and the Studio makes a form from them:</p>
+<pre><code><span class="k">@AlkaSettings</span>(description = <span class="s">"Greets its manager."</span>, value = {
+    <span class="k">@Setting</span>(key = <span class="s">"hello.intervalSeconds"</span>, type = SettingType.NUMBER,
+             defaultValue = <span class="s">"2"</span>, min = <span class="s">"1"</span>, max = <span class="s">"3600"</span>,
+             description = <span class="s">"Seconds between two greetings."</span>)
+})
+<span class="k">public class</span> HelloPlugin <span class="k">extends</span> ObjectPlugin { <span class="c">/* init, run, stop, accept */</span> }</code></pre>
+</section>
+
+<section>
+  <h2>The Studio</h2>
+  <p>Drag a jar onto the diagram, draw a line between two boxes, change a setting, press Start. The Studio writes the config and keeps the older versions of every file. It checks the service before it starts, and shows the log with filters and the numbers of every box while it runs.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/studio-settings.png" width="2160" height="1350" alt="Alka Studio with a plugin selected: its settings as a form on the right"></div>
+    <figcaption>A plugin selected: its settings are a form.</figcaption>
+  </figure>
+</section>
+
+<section id="start">
+  <h2>Try it</h2>
+  <ol>
+    <li>Download <code>alka-0.1.0.zip</code> from the <a href="https://github.com/LejlaO/alka/releases/latest">latest release</a> and unzip it.</li>
+    <li>Start <code>studio.bat</code> (<code>./studio.sh</code> on Linux and macOS). Select the service <b>alkaprocessor</b> and press Start. That is the demo: one plugin talks to a manager and passes the answer to a second plugin.</li>
+    <li>To make your own, you need Maven 3.9. This makes a project with a manager, a plugin and a service:
+<pre><code>mvn archetype:generate -DarchetypeGroupId=com.alkadev \
+  -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.1.0</code></pre>
+    </li>
+    <li>Build it and copy it into the <code>home</code> folder of the package. It shows up in the Studio:
+<pre><code>cd myalka
+mvn install
+mvn package alka:deploy -Dalka.home=&lt;the folder "home" of the package&gt;</code></pre>
+    </li>
+  </ol>
+  <p>More in <a href="https://github.com/LejlaO/alka/blob/main/docs/your-first-plugin.md">Your first plugin</a> and <a href="https://github.com/LejlaO/alka/blob/main/docs/how-it-works.md">How Alka works</a>.</p>
+</section>
+
+<section>
+  <h2>License</h2>
+  <p>The API, the Maven plugin, the project generator and the samples are Apache 2.0. They are on <a href="https://github.com/LejlaO/alka">GitHub</a> and on <a href="https://central.sonatype.com/namespace/com.alkadev">Maven Central</a> (<code>com.alkadev</code>).</p>
+  <p>The engine and the Studio come as a package and are free for noncommercial use (PolyForm Noncommercial 1.0.0, with a few added terms). For commercial use, <a href="https://github.com/LejlaO/alka/issues">open an issue</a> and ask.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Lejla Omerovic</span>
+    <nav aria-label="Links">
+      <a href="https://github.com/LejlaO/alka">GitHub</a>
+      <a href="https://github.com/LejlaO/alka/tree/main/docs">Docs</a>
+      <a href="https://central.sonatype.com/namespace/com.alkadev">Maven Central</a>
+      <a href="https://github.com/LejlaO/alka/issues">Issues</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
