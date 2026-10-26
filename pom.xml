@@ -10,7 +10,7 @@
 
     <name>Alka</name>
     <description>The API of the Alka service engine (annotations, object plugin, object manager, common) and samples of a plugin and a manager.</description>
-    <url>https://github.com/LejlaO/alka</url>
+    <url>https://alkadev.com</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
