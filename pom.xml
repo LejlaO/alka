@@ -18,6 +18,18 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <developers>
+        <developer>
+            <name>Lejla Omerovic</name>
+            <url>https://github.com/LejlaO</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/LejlaO/alka.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/LejlaO/alka.git</developerConnection>
+        <url>https://github.com/LejlaO/alka</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <maven.compiler.source>25</maven.compiler.source>
@@ -88,4 +100,76 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- mvn -Prelease deploy: what Maven Central wants of every release (sources jar, javadoc jar, signatures) and the upload.
+             Without the profile a build is as fast as before and needs no key. -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.12.0</version>
+                        <configuration>
+                            <release>${java-compiler-version}</release>
+                            <!-- the comments are written for people who read the source, not for the strict checks of javadoc -->
+                            <doclint>none</doclint>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- signs every file with your key; needs gpg on the machine. The passphrase is asked by gpg-agent, or given as -Dgpg.passphrase=... -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- uploads all modules as one bundle to the Central Portal. The user token is the server <id>central</id> in your own settings.xml, never in a pom.
+                             autoPublish false: the bundle is validated and then waits for you to click Publish in the Portal (a published version can never be removed). -->
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.12.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>false</autoPublish>
+                            <waitUntil>validated</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

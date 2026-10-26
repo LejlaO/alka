@@ -11,6 +11,9 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>objectplugin</artifactId>
 
+    <name>Alka object plugin</name>
+    <description>The base class of a plugin of Alka (ObjectPlugin).</description>
+
     <dependencies>
         <dependency>
             <groupId>com.alkadev.utils</groupId>

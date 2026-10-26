@@ -11,6 +11,9 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>objectmanager</artifactId>
 
+    <name>Alka object manager</name>
+    <description>The base class of a manager of Alka (ObjectManager) and the open set of manager types.</description>
+
     <dependencies>
         <dependency>
             <groupId>com.alkadev.utils</groupId>

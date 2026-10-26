@@ -12,6 +12,9 @@
 
     <artifactId>annotations</artifactId>
 
+    <name>Alka annotations</name>
+    <description>The annotation @AlkaSettings and the annotation processor that writes the settings template of a plugin or a manager into its jar.</description>
+
     <build>
         <plugins>
             <plugin>

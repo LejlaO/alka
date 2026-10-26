@@ -13,6 +13,9 @@
     <artifactId>samples</artifactId>
     <packaging>pom</packaging>
 
+    <name>Alka samples</name>
+    <description>Reference plugin and manager of Alka.</description>
+
     <!-- reference Manager + Plugin to copy; independent of each other, both depend only on objectmanager/objectplugin -->
     <modules>
         <module>sampleplugin</module>

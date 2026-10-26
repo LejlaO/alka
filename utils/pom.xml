@@ -12,6 +12,9 @@
     <groupId>com.alkadev.utils</groupId>
     <artifactId>utils</artifactId>
     <packaging>pom</packaging>
+
+    <name>Alka utils</name>
+    <description>The shared modules of the Alka API: common, object manager and object plugin.</description>
     <modules>
         <module>common</module>
         <module>objectmanager</module>

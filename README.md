@@ -16,7 +16,7 @@ Alka is a service engine for Java 25. A service is a set of **plugins** and **ma
 
 The engine itself and its web tool, Alka Studio, are not in this repository. They are given as binaries.
 
-**State:** version 0.1.0, an early version. The API can still change before 1.0.0. It is not on Maven Central yet, so build this repository first (below).
+**State:** an early version (0.x): the API can still change before 1.0.0. It is not on Maven Central yet, so build this repository first (below). How a release is made is in `RELEASING.md`.
 
 ## Build
 

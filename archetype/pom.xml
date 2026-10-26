@@ -16,6 +16,35 @@
     <name>Alka sample archetype</name>
     <description>Makes a small project of Alka: a manager, a plugin that talks to it, and a service that wires them. Build it, and copy the result into an Alka home.</description>
 
+    <profiles>
+        <profile>
+            <!-- an archetype has no Java sources to document, but Maven Central asks for a javadoc jar next to every jar: this one holds a note -->
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>javadoc-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>javadoc</classifier>
+                                    <classesDirectory>${project.basedir}/src/javadoc</classesDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <extensions>
             <extension>

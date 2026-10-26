@@ -14,6 +14,9 @@
 
     <artifactId>samplemanager</artifactId>
 
+    <name>Alka sample manager</name>
+    <description>A reference manager of Alka.</description>
+
     <properties>
         <alka.className>com.alkadev.plugins.samplemanager.SampleManager</alka.className>
     </properties>

@@ -14,6 +14,9 @@
 
     <artifactId>sampleplugin</artifactId>
 
+    <name>Alka sample plugin</name>
+    <description>A reference plugin of Alka with every kind of setting.</description>
+
     <properties>
         <alka.className>com.alkadev.plugins.sampleplugin.SamplePlugin</alka.className>
     </properties>

@@ -12,6 +12,9 @@
 
     <artifactId>common</artifactId>
 
+    <name>Alka common</name>
+    <description>The base of every Alka component (AlkaComponent) and the loader of plugin and manager jars.</description>
+
     <dependencies>
         <dependency>
             <groupId>com.alkadev</groupId>
