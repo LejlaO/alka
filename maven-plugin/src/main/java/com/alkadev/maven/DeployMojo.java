@@ -10,13 +10,17 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 /**
  * Copies the drop folder (see alka:package) into an Alka home, for example: mvn package alka:deploy -Dalka.home=C:\alka\home
- * Files of the same name are replaced. A jar that a running service has open cannot be replaced on Windows: stop that service first.
+ * In a project with modules the goal runs in every module; a module without a drop folder is skipped when it is only a pom. Files of the same name are replaced. A jar that a running service has open cannot be replaced on Windows: stop that service first.
  */
 @Mojo(name = "deploy", threadSafe = true)
 public class DeployMojo extends AbstractMojo {
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
+    private MavenProject project;
+
     @Parameter(property = "alka.home", required = true)
     private File home;
 
@@ -26,6 +30,10 @@ public class DeployMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         Path drop = dropFolder.toPath();
+        if (!Files.isDirectory(drop) && "pom".equals(project.getPackaging())) {
+            getLog().info("No drop folder in " + project.getArtifactId() + " (a pom that only holds modules): nothing to deploy here.");
+            return;
+        }
         if (!Files.isDirectory(drop))
             throw new MojoExecutionException("There is no drop folder (" + drop + "): run it together with the package phase, for example mvn package alka:deploy -Dalka.home=...");
         Path target = home.toPath();

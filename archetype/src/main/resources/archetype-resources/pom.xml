@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- The parent of Alka holds what every plugin and manager needs: the API as provided dependencies, the annotation processor, the manifest of the jar
+         and the Maven plugin that writes the drop folder (target/alka). Look inside it once: it is short. -->
+    <parent>
+        <groupId>com.alkadev</groupId>
+        <artifactId>alka-plugin-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
+
+    <name>${artifactId}</name>
+
+    <!-- manager and plugin are jars; the service is only configuration files, and puts the two jars and the files into one folder -->
+    <modules>
+        <module>${artifactId}-manager</module>
+        <module>${artifactId}-plugin</module>
+        <module>${artifactId}-service</module>
+    </modules>
+</project>

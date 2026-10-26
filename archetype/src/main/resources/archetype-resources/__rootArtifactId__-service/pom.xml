@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${rootArtifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+
+    <artifactId>${artifactId}</artifactId>
+    <packaging>pom</packaging>
+
+    <!-- A service is not code. It is the config files in src/alka (which service has which plugins and managers, and how they are wired) and the jars it uses.
+         This module builds the folder target/alka that can be copied into an Alka home: the config files, and the two jars in the plugin folder of the service. -->
+
+    <!-- no code of this module uses them: they make Maven build the manager and the plugin first -->
+    <dependencies>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-manager</artifactId>
+            <version>${version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-plugin</artifactId>
+            <version>${version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>service-config</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${symbol_dollar}{project.build.directory}/alka</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/alka</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- a service uses the jars of its own plugin folder: libs/override/<service>/plugin -->
+                        <id>service-jars</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${symbol_dollar}{project.build.directory}/alka/libs/override/${rootArtifactId}/plugin</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>../${rootArtifactId}-manager/target/alka/libs/plugin</directory>
+                                </resource>
+                                <resource>
+                                    <directory>../${rootArtifactId}-plugin/target/alka/libs/plugin</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

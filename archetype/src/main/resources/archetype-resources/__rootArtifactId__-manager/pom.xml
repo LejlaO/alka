@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${rootArtifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+
+    <artifactId>${artifactId}</artifactId>
+
+    <properties>
+        <!-- the class that the engine creates. It extends ObjectManager (a manager) or ObjectPlugin (a plugin). -->
+        <alka.className>${package}.manager.GreeterManager</alka.className>
+    </properties>
+
+    <!-- A library that the manager needs goes here as a normal dependency. The build puts it into the folder ${artifactId}.lib next to the jar.
+         The API and log4j are not copied: the engine has them. -->
+</project>

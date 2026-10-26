@@ -10,8 +10,9 @@ Alka is a service engine for Java 25. A service is a set of **plugins** and **ma
 | `utils/objectplugin` | `com.alkadev.utils` | the base class of a plugin (`ObjectPlugin`) |
 | `plugin-parent` | `com.alkadev` | `alka-plugin-parent`: the parent pom of a plugin or a manager |
 | `maven-plugin` | `com.alkadev` | `alka-maven-plugin`: the goals `alka:package` and `alka:deploy` |
-| `samples/sampleplugin` | `com.alkadev` | a small plugin to start from |
-| `samples/samplemanager` | `com.alkadev` | a small manager to start from |
+| `archetype` | `com.alkadev` | `alka-sample-archetype`: makes a small project with a manager, a plugin and a service |
+| `samples/sampleplugin` | `com.alkadev` | a reference plugin with every kind of setting (the engine's own tests use it too) |
+| `samples/samplemanager` | `com.alkadev` | a reference manager |
 
 The engine itself and its web tool, Alka Studio, are not in this repository. They are given as binaries.
 
@@ -27,9 +28,23 @@ mvn install
 
 This builds all modules and installs them in the local Maven repository.
 
+## Start here: one command
+
+```
+mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.1.0
+```
+
+Maven asks for a group id, an artifact id (say `myalka`), a version and a package. It makes a project of three small modules, with comments that explain what to write:
+
+- `myalka-manager`: a manager (`GreeterManager`) that owns a counter and a greeting and answers requests,
+- `myalka-plugin`: a plugin (`HelloPlugin`) that greets the manager every few seconds and logs the answer,
+- `myalka-service`: no code, only the config files that make the two a service called `myalka`, and its two jars.
+
+`mvn install` builds them, and `mvn package alka:deploy -Dalka.home=C:\path\to\alka-home` copies the result into a home. In the Studio the service `myalka` is in the list; start it and the plugin and the manager talk. (The archetype is built and installed by `mvn install` of this repository.)
+
 ## Write your own plugin or manager
 
-The pom of a plugin is the parent, the name of the class, and the libraries the plugin needs. Look at `samples/sampleplugin/pom.xml`:
+The pom of a plugin is the parent, the name of the class, and the libraries the plugin needs. The generated project has it; so has `samples/sampleplugin/pom.xml`:
 
 ```xml
 <parent>

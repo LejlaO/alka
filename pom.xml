@@ -32,6 +32,7 @@
         <module>maven-plugin</module>
         <module>plugin-parent</module>
         <module>samples</module>
+        <module>archetype</module>
     </modules>
 
     <dependencyManagement>
