@@ -1,0 +1,52 @@
+# On a version tag (v0.1.0, v0.2.0-rc1, ...): the tag must be the version of the poms; everything is built, signed and uploaded to the Central Portal as a bundle that
+# is validated and then WAITS for you to click Publish (autoPublish is false in the pom). A release page is made for the tag; the package (the zips) is attached to it
+# by the workflow of the private repository alka-engine, which is started by a tag of the same name.
+# Needs these secrets in the settings of this repository: CENTRAL_USERNAME, CENTRAL_PASSWORD (the user token of the Central Portal), GPG_PRIVATE_KEY (the signing key,
+# exported as text) and GPG_PASSPHRASE. See RELEASING.md.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+          server-id: central
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+      - name: The tag must be the version of the poms
+        run: |
+          VERSION="$(mvn -B -q help:evaluate -Dexpression=project.version -DforceStdout)"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "The tag $GITHUB_REF_NAME is not v$VERSION, the version of the poms. Set the version with set-version.ps1, commit, and tag again."
+            exit 1
+          fi
+      - name: Build, sign and upload to the Central Portal (validated, not published)
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: mvn -B -Prelease clean deploy
+      - name: The release page of the tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            FLAG=""
+            case "$GITHUB_REF_NAME" in *-*) FLAG="--prerelease";; esac
+            gh release create "$GITHUB_REF_NAME" --title "Alka $VERSION" --notes "Alka $VERSION. The package (Studio, engine and a demo service) is attached below. The libraries are on Maven Central as com.alkadev:*:$VERSION once the bundle in the Central Portal is published." $FLAG
+          fi
