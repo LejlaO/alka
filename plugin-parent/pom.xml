@@ -81,7 +81,7 @@
             <plugin>
                 <groupId>com.alkadev</groupId>
                 <artifactId>alka-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${alka.version}</version>
                 <executions>
                     <execution>
                         <id>alka-drop-folder</id>

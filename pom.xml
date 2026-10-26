@@ -24,6 +24,9 @@
         <maven.compiler.target>25</maven.compiler.target>
         <java-compiler-version>25</java-compiler-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- the version of Alka that a plugin or manager builds on. It is a property of its own and not project.version, because this pom is the parent of
+             other projects (plugin-parent, and through it every plugin) and there project.version is the version of the plugin. Keep it equal to the version of this pom. -->
+        <alka.version>0.1.0</alka.version>
     </properties>
 
     <modules>
@@ -53,22 +56,22 @@
             <dependency>
                 <groupId>com.alkadev</groupId>
                 <artifactId>annotations</artifactId>
-                <version>${project.version}</version>
+                <version>${alka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alkadev.utils</groupId>
                 <artifactId>common</artifactId>
-                <version>${project.version}</version>
+                <version>${alka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alkadev.utils</groupId>
                 <artifactId>objectmanager</artifactId>
-                <version>${project.version}</version>
+                <version>${alka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alkadev.utils</groupId>
                 <artifactId>objectplugin</artifactId>
-                <version>${project.version}</version>
+                <version>${alka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
