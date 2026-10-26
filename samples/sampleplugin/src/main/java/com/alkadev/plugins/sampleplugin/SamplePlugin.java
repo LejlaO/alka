@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
                 description = "Write a log line for every heartbeat call."),
         @Setting(key = "sample.forward", type = SettingType.BOOLEAN, defaultValue = "false",
                 description = "After each heartbeat call, also send the request on to the plugins this one is wired to (shows how a plugin sends to its receivers)."),
-        @Setting(key = "sample.messages", defaultValue = "volim te saro|volim te asja",
+        @Setting(key = "sample.messages", defaultValue = "...do iza svemira,|....i nazad!",
                 description = "Texts the plugin writes to the log one after another, separated by |. Empty means none."),
         @Setting(key = "sample.messageMillis", type = SettingType.NUMBER, defaultValue = "500", min = "0", max = "3600000",
                 description = "Milliseconds between two of those messages. 0 switches them off."),
@@ -112,7 +112,7 @@ public class SamplePlugin extends ObjectPlugin {
         } catch (NumberFormatException e) {
             logWarn("sample.messageMillis is not a whole number, using 500.");
         }
-        messages = properties.getProperty("sample.messages", "volim te saro|volim te asja").split("\\|");
+        messages = properties.getProperty("sample.messages", "...do iza svemira,|....i nazad!").split("\\|");
         messages = java.util.Arrays.stream(messages).map(String::trim).filter(s -> !s.isEmpty()).toArray(String[]::new);
         if (millis > 0 && messages.length > 0) scheduler.scheduleAtFixedRate(this::say, millis, millis, TimeUnit.MILLISECONDS);
         return true;
