@@ -29,6 +29,8 @@
     <modules>
         <module>annotations</module>
         <module>utils</module>
+        <module>maven-plugin</module>
+        <module>plugin-parent</module>
         <module>samples</module>
     </modules>
 

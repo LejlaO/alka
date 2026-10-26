@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alkadev</groupId>
+        <artifactId>alka-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+
+    <artifactId>alka-plugin-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Alka plugin parent</name>
+    <description>The parent pom of a plugin or a manager of Alka: the build of a jar that the engine accepts, and the drop folder to copy into an Alka home.</description>
+
+    <properties>
+        <!-- the plugin or manager author sets this one: the class that the engine creates (it extends ObjectPlugin or ObjectManager) -->
+        <alka.className>UNSET: set alka.className in the pom of the plugin</alka.className>
+        <!-- the version of the Alka API that the jar is built for; the engine refuses a jar of another API version -->
+        <alka.apiVersion>1</alka.apiVersion>
+    </properties>
+
+    <!-- provided = on the class path of the engine at runtime, so none of these goes into the jar or its .lib folder -->
+    <dependencies>
+        <dependency>
+            <groupId>com.alkadev.utils</groupId>
+            <artifactId>objectplugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alkadev.utils</groupId>
+            <artifactId>objectmanager</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alkadev</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- no version in the jar name: the name of the jar is how a service refers to it -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs>
+                        <!-- runs the annotation processor of Alka: it writes the settings template into the jar -->
+                        <arg>-proc:full</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <!-- classname, not mainClass: the engine reads it to find the class -->
+                            <classname>${alka.className}</classname>
+                            <alka-api-version>${alka.apiVersion}</alka-api-version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.alkadev</groupId>
+                <artifactId>alka-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>alka-drop-folder</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
