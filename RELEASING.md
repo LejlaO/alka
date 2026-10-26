@@ -20,11 +20,21 @@ What a release of this repository takes. Nothing in it is a secret: the key and 
 </settings>
 ```
 
+### Windows: signing says `No pinentry`
+
+Gpg4win keeps its passphrase window in `C:\Program Files\Gpg4win\bin\pinentry.exe`, where the GPG agent does not look. Tell it, in the file `%APPDATA%\gnupg\gpg-agent.conf` (one line), and restart the agent with `gpgconf --kill gpg-agent`:
+
+```
+pinentry-program C:\Program Files\Gpg4win\bin\pinentry.exe
+```
+
+The `gpg` of Git for Windows is not the one with your key: give Maven the one of Gpg4win, `-Dgpg.executable="C:\Program Files\GnuPG\bin\gpg.exe"`. The window for the passphrase opens on the first signature and the agent remembers it for a while, so it is asked once per release.
+
 ## Every release
 
 1. Set the version everywhere: `powershell -File set-version.ps1 -Version 0.2.0`
 2. Build without signing and without uploading, to see that the sources jars and the javadoc jars are made: `mvn -Prelease -Dgpg.skip=true clean verify`
-3. Upload for validation: `mvn -Prelease clean deploy`. All modules go up as one bundle, signed with your key. The bundle is validated by the Portal and then **waits**: it is not published until you click Publish in the Portal. A version that is published can never be removed or overwritten, so look at the validation result first. A bundle that you do not want can be dropped in the Portal.
+3. Upload for validation: `mvn -Prelease "-Dgpg.executable=C:\Program Files\GnuPG\bin\gpg.exe" clean deploy` (on Windows; elsewhere `mvn -Prelease clean deploy`). All modules go up as one bundle, signed with your key. The bundle is validated by the Portal and then **waits**: it is not published until you click Publish in the Portal. A version that is published can never be removed or overwritten, so look at the validation result first. A bundle that you do not want can be dropped in the Portal.
 4. Commit the new version and tag it (`git tag v0.2.0`).
 
 The private repository (alka-engine) builds on the published version through the property `alka.api.version` in its root pom: change it there too.
