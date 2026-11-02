@@ -67,22 +67,22 @@
             <!-- the modules of this repository, all versioned in lockstep -->
             <dependency>
                 <groupId>com.alkadev</groupId>
-                <artifactId>annotations</artifactId>
+                <artifactId>alka-annotations</artifactId>
                 <version>${alka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alkadev.utils</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>alka-common</artifactId>
                 <version>${alka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alkadev.utils</groupId>
-                <artifactId>objectmanager</artifactId>
+                <artifactId>alka-objectmanager</artifactId>
                 <version>${alka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alkadev.utils</groupId>
-                <artifactId>objectplugin</artifactId>
+                <artifactId>alka-objectplugin</artifactId>
                 <version>${alka.version}</version>
             </dependency>
         </dependencies>

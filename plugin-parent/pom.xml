@@ -27,17 +27,17 @@
     <dependencies>
         <dependency>
             <groupId>com.alkadev.utils</groupId>
-            <artifactId>objectplugin</artifactId>
+            <artifactId>alka-objectplugin</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.alkadev.utils</groupId>
-            <artifactId>objectmanager</artifactId>
+            <artifactId>alka-objectmanager</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.alkadev</groupId>
-            <artifactId>annotations</artifactId>
+            <artifactId>alka-annotations</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

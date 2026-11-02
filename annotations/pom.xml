@@ -10,7 +10,7 @@
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>annotations</artifactId>
+    <artifactId>alka-annotations</artifactId>
 
     <name>Alka annotations</name>
     <description>The annotation @AlkaSettings and the annotation processor that writes the settings template of a plugin or a manager into its jar.</description>

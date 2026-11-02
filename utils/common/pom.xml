@@ -6,11 +6,11 @@
 
     <parent>
         <groupId>com.alkadev.utils</groupId>
-        <artifactId>utils</artifactId>
+        <artifactId>alka-utils</artifactId>
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>common</artifactId>
+    <artifactId>alka-common</artifactId>
 
     <name>Alka common</name>
     <description>The base of every Alka component (AlkaComponent) and the loader of plugin and manager jars.</description>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>com.alkadev</groupId>
-            <artifactId>annotations</artifactId>
+            <artifactId>alka-annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

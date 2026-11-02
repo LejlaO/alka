@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.alkadev.utils</groupId>
-    <artifactId>utils</artifactId>
+    <artifactId>alka-utils</artifactId>
     <packaging>pom</packaging>
 
     <name>Alka utils</name>

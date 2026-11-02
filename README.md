@@ -50,10 +50,10 @@ Open the Studio again: the service `myalka` is in the list, and its manager and 
 
 | Module | Group id | What it is |
 |---|---|---|
-| `annotations` | `com.alkadev` | `@AlkaSettings` and the annotation processor that writes the settings template of a jar |
-| `utils/common` | `com.alkadev.utils` | the base of every component (`AlkaComponent`), the loader of plugin and manager jars |
-| `utils/objectmanager` | `com.alkadev.utils` | the base class of a manager (`ObjectManager`) |
-| `utils/objectplugin` | `com.alkadev.utils` | the base class of a plugin (`ObjectPlugin`) |
+| `annotations` (`alka-annotations`) | `com.alkadev` | `@AlkaSettings` and the annotation processor that writes the settings template of a jar |
+| `utils/common` (`alka-common`) | `com.alkadev.utils` | the base of every component (`AlkaComponent`), the loader of plugin and manager jars |
+| `utils/objectmanager` (`alka-objectmanager`) | `com.alkadev.utils` | the base class of a manager (`ObjectManager`) |
+| `utils/objectplugin` (`alka-objectplugin`) | `com.alkadev.utils` | the base class of a plugin (`ObjectPlugin`) |
 | `plugin-parent` | `com.alkadev` | `alka-plugin-parent`: the parent pom of a plugin or a manager |
 | `maven-plugin` | `com.alkadev` | `alka-maven-plugin`: the goals `alka:package` and `alka:deploy` |
 | `archetype` | `com.alkadev` | `alka-sample-archetype`: makes a small project with a manager, a plugin and a service |
