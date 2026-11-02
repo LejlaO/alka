@@ -36,7 +36,9 @@ To check a download, compare its checksum with the line in `SHA256SUMS.txt`: on 
 
 ## Make your own plugin or manager
 
-You need Java 21 and [Maven](https://maven.apache.org) 3.9 or newer. One command makes a small project:
+You need Java 21 and [Maven](https://maven.apache.org) 3.9 or newer. **Never used Maven, a terminal or IntelliJ? Read [Getting started](docs/getting-started.md) first:** it says what to install, where to type each command and what you should see.
+
+One command makes a small project. Type it in a terminal (on Windows in the **Command Prompt**, `cmd`: open the folder in File Explorer, click the address bar, type `cmd`, Enter):
 
 ```
 mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.2.0
@@ -49,6 +51,8 @@ cd myalka
 mvn install
 mvn package alka:deploy -Dalka.home=<the folder "home" of the unzipped package>
 ```
+
+On Windows, use the Command Prompt and not PowerShell: the old Windows PowerShell breaks options like `-DarchetypeVersion=0.2.0` at the dot. In PowerShell put each `-D...` option in quotes. In IntelliJ none of this matters: open the folder `myalka`, double-click `install` in the Maven panel, and run the deploy command with Ctrl twice ([how](docs/getting-started.md#6-intellij-idea-optional)).
 
 Open the Studio again: the service `myalka` is in the list, and its manager and plugin are in the Components palette. Start it and watch the log. The guide [Your first plugin](docs/your-first-plugin.md) goes through it step by step.
 

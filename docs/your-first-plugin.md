@@ -2,7 +2,9 @@
 
 From nothing to a plugin of your own, running in a service. About 20 minutes.
 
-You need: the Alka package unzipped (see the [README](../README.md)), **Java 21** and **Maven 3.9**.
+You need: the Alka package unzipped (see the [README](../README.md)), **Java 21** and **Maven 3.9**. If you have never used Maven, a terminal or IntelliJ, read [Getting started](getting-started.md) first: it says what to install and where to type the commands.
+
+On Windows type the commands in the **Command Prompt** (`cmd`), not in PowerShell, or put every `-D...` option in quotes.
 
 ## 1. Make the project
 
