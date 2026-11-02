@@ -125,6 +125,8 @@ Press Enter. The same for every later change: edit the code, run `install`, run 
 
 **Which Maven does IntelliJ use?** **File, Settings, Build, Execution, Deployment, Build Tools, Maven**, field **Maven home path**. The default *Bundled Maven* of a recent IntelliJ is 3.9 and is fine. If it shows an older one, click the field and choose the folder of the Maven you installed in step 3.
 
+**Which Java does Maven use in IntelliJ?** Not always the one you expect. IntelliJ starts Maven with its own setting, and that can be an older Java (17, for example) even when the project uses 21. Then the build fails with `invalid flag: -proc:full`. Set it in **File, Settings, Build, Execution, Deployment, Build Tools, Maven, Runner**, field **JRE**: choose a 21 (Temurin 21; add it with **File, Project Structure, SDKs, +, Download JDK** if it is not in the list). Do the same in **Maven, Importing**, field **JDK for importer**, and set **File, Project Structure, Project, SDK** to the same 21.
+
 **Make the project inside IntelliJ instead of the terminal:** **File, New, Project...**, on the left **Maven Archetype**. Next to *Archetype* click **Add...** and type group id `com.alkadev`, artifact id `alka-sample-archetype`, version `0.2.0`. Give the project a name (it becomes the artifact id, for example `myalka`) and click **Create**.
 
 ## When something goes wrong
@@ -137,6 +139,7 @@ Press Enter. The same for every later change: edit the code, run `install`, run 
 | `The goal you specified requires a project to execute but there is no POM in this directory` (right after `archetype:generate`), or `Unknown lifecycle phase` | You typed the command in Windows PowerShell, which breaks `-D...=0.2.0` at the dot. Use the Command Prompt, or put each `-D...` option in quotes. |
 | `Could not transfer artifact ... status code: 502` or `Connection timed out` | The internet or Maven Central had a hiccup. Run the same command again. |
 | `Unsupported class file major version` / `invalid target release` | Your Java is older than 21. Step 2. |
+| `invalid flag: -proc:full` / `release version 21 not supported` | Maven runs on a Java older than 21. In IntelliJ it is the **JRE** of the Maven *Runner* setting, see step 6. In a terminal, check `mvn -version`. |
 | `alka:deploy` says it cannot replace a file | The service is running and has the jar open (Windows). Stop it in the Studio, deploy, start again. |
 | The service `myalka` is not in the Studio | The path in `-Dalka.home=` is not the folder `home` of the package that the Studio shows. Check it, and press the refresh button of the Studio. |
 

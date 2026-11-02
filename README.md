@@ -60,6 +60,7 @@ Open the Studio again: the service `myalka` is in the list, and its manager and 
 
 - [How Alka works](docs/how-it-works.md): services, plugins, managers, wiring, events, settings, the folders of a home. One page, read it before the code.
 - [Your first plugin](docs/your-first-plugin.md): from the generated project to a plugin of your own.
+- [A manager, a plugin and a service from scratch](docs/from-scratch.md): no archetype and no `alka:deploy`: every file by hand, and how to copy it into a home.
 - [Things to know](docs/gotchas.md): the places where a plugin surprises its author (threads, settings, shared state).
 - [Releasing](RELEASING.md): how a release of this repository is made.
 

@@ -64,7 +64,7 @@ mvn package alka:deploy -Dalka.home=C:\path\to\alka-0.2.0\home
 
 ## 6. Your own project from scratch
 
-You do not need the archetype to start. The pom of a plugin is only this:
+You do not need the archetype to start. [A manager, a plugin and a service from scratch](from-scratch.md) builds all three by hand, without the parent pom and without `alka:deploy`. With the parent, the pom of a plugin is only this:
 
 ```xml
 <parent>
