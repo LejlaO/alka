@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.alkadev</groupId>
     <artifactId>alka-parent</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <packaging>pom</packaging>
 
     <name>Alka</name>
@@ -38,7 +38,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- the version of Alka that a plugin or manager builds on. It is a property of its own and not project.version, because this pom is the parent of
              other projects (plugin-parent, and through it every plugin) and there project.version is the version of the plugin. Keep it equal to the version of this pom. -->
-        <alka.version>0.1.0</alka.version>
+        <alka.version>0.2.0</alka.version>
     </properties>
 
     <modules>

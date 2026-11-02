@@ -26,7 +26,7 @@ The zip holds the Studio, the engine and the demo service. The checksums are in 
 You need Java 25 and [Maven](https://maven.apache.org) 3.9 or newer. One command makes a small project:
 
 ```
-mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.1.0
+mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.2.0
 ```
 
 Maven asks for a group id, an artifact id (say `myalka`), a version and a package, and makes three modules: a manager, a plugin that talks to it, and a service that wires the two. Then:
