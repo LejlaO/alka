@@ -48,5 +48,16 @@ jobs:
           if ! gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
             FLAG=""
             case "$GITHUB_REF_NAME" in *-*) FLAG="--prerelease";; esac
-            gh release create "$GITHUB_REF_NAME" --title "Alka $VERSION" --notes "Alka $VERSION. The package (Studio, engine and a demo service) is attached below. The libraries are on Maven Central as com.alkadev:*:$VERSION once the bundle in the Central Portal is published." $FLAG
+            {
+              echo "Alka $VERSION."
+              echo
+              echo "**Download \`alka-$VERSION.zip\`** and unzip it: it is the package with the Studio, the engine and a demo service. Start \`studio.bat\` (Windows) or \`./studio.sh\`. You need Java 21 or newer."
+              echo
+              echo "- \`alka-$VERSION-home.zip\` is only the home folder (engine, config, demo) without the Studio. You need it only if you already have a Studio."
+              echo "- \`SHA256SUMS.txt\` has the checksums of the two zips, to check that a download is whole."
+              echo "- \"Source code\" is added by GitHub: the source of the public repository at this version. You do not need it to run Alka."
+              echo
+              echo "The libraries (the API, the parent pom, the Maven plugin, the project generator) are not here: they are on Maven Central as com.alkadev:*:$VERSION, and Maven fetches them. More in the README."
+            } > release-notes.md
+            gh release create "$GITHUB_REF_NAME" --title "Alka $VERSION" --notes-file release-notes.md $FLAG
           fi

@@ -21,7 +21,18 @@ Alka is a small service engine for Java. You write the pieces of a service as **
 3. Start `studio.bat` (Windows) or `./studio.sh` (Linux, macOS). The Studio opens in your browser.
 4. Select the service **alkaprocessor** (the demo), press **Start**, and watch the log: one plugin greets a manager every few seconds, and a second plugin receives what the first sends on.
 
-The zip holds the Studio, the engine and the demo service. The checksums are in `SHA256SUMS.txt` on the release page. `alka-<version>-home.zip` is only the home folder with the engine, for someone who has a Studio already.
+### What is on the release page
+
+| File | What it is | Do you need it? |
+|---|---|---|
+| `alka-<version>.zip` | **The package.** The Studio, the engine, a `home` folder with the demo service, `studio.bat` and `studio.sh`, the licenses. | **Yes, this one.** Unzip it and start the Studio. |
+| `alka-<version>-home.zip` | Only the `home` folder (the engine, the config, the demo), without the Studio. | Only if you already have a Studio and want a second home to run services in. |
+| `SHA256SUMS.txt` | The checksums of the two zips. | No. It lets you check that a download is whole and is the file that was released (below). |
+| Source code (zip, tar.gz) | Added by GitHub: the source of this public repository at that version (the API, the Maven plugin, the project generator). | No. Not needed to run Alka. |
+
+The libraries (the API, the parent pom, the Maven plugin, the project generator) are not on the release page. They are on [Maven Central](https://central.sonatype.com/namespace/com.alkadev) as `com.alkadev:*` and Maven fetches them by itself when you build a plugin.
+
+To check a download, compare its checksum with the line in `SHA256SUMS.txt`: on Windows `Get-FileHash alka-<version>.zip -Algorithm SHA256` in PowerShell, on Linux and macOS `sha256sum alka-<version>.zip`.
 
 ## Make your own plugin or manager
 
