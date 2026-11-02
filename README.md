@@ -2,7 +2,7 @@
 
 Web page: https://alkadev.com
 
-Alka is a small service engine for Java 25. You write the pieces of a service as **plugins** and **managers** (one jar each), and the engine loads them and runs them from configuration files. **Alka Studio**, a tool in your browser, shows how the pieces are wired, edits their settings, starts and stops the service and shows its log.
+Alka is a small service engine for Java. You write the pieces of a service as **plugins** and **managers** (one jar each), and the engine loads them and runs them from configuration files. **Alka Studio**, a tool in your browser, shows how the pieces are wired, edits their settings, starts and stops the service and shows its log.
 
 ```
  plugin ──sends events──▶ plugin          a plugin does the work and talks to other plugins
@@ -14,7 +14,7 @@ Alka is a small service engine for Java 25. You write the pieces of a service as
 
 ## Download and run the demo
 
-1. You need **Java 25 or newer** (`java -version`), for example from https://adoptium.net.
+1. You need **Java 21 or newer** (`java -version`), for example from https://adoptium.net.
 2. Download `alka-<version>.zip` from the [latest release](https://github.com/LejlaO/alka/releases/latest) and unzip it anywhere.
 3. Start `studio.bat` (Windows) or `./studio.sh` (Linux, macOS). The Studio opens in your browser.
 4. Select the service **alkaprocessor** (the demo), press **Start**, and watch the log: one plugin greets a manager every few seconds, and a second plugin receives what the first sends on.
@@ -23,7 +23,7 @@ The zip holds the Studio, the engine and the demo service. The checksums are in 
 
 ## Make your own plugin or manager
 
-You need Java 25 and [Maven](https://maven.apache.org) 3.9 or newer. One command makes a small project:
+You need Java 21 and [Maven](https://maven.apache.org) 3.9 or newer. One command makes a small project:
 
 ```
 mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.2.0
@@ -62,7 +62,7 @@ Open the Studio again: the service `myalka` is in the list, and its manager and 
 
 The engine and Alka Studio are not in this repository: they are given as binaries in the package.
 
-To build this repository yourself you need Java 25 and Maven: `mvn install`.
+To build this repository yourself you need Java 21 and Maven: `mvn install`.
 
 ## License
 

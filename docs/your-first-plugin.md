@@ -2,12 +2,12 @@
 
 From nothing to a plugin of your own, running in a service. About 20 minutes.
 
-You need: the Alka package unzipped (see the [README](../README.md)), **Java 25** and **Maven 3.9**.
+You need: the Alka package unzipped (see the [README](../README.md)), **Java 21** and **Maven 3.9**.
 
 ## 1. Make the project
 
 ```
-mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.1.0
+mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.2.0
 ```
 
 Answer the questions: group id `com.example`, artifact id `myalka`, version `0.1.0`, package `com.example.myalka`. You get:
@@ -27,7 +27,7 @@ Open the two Java files. They are short and have comments that explain the rules
 ```
 cd myalka
 mvn install
-mvn package alka:deploy -Dalka.home=C:\path\to\alka-0.1.0\home
+mvn package alka:deploy -Dalka.home=C:\path\to\alka-0.2.0\home
 ```
 
 `mvn install` makes the jars, and for each module a **drop folder** `target/alka` with the layout of a home: the jar in `libs/plugin`, its libraries (if any) in `<jar>.lib`, and the settings template in `config/templates`. `alka:deploy` copies the drop folders into your home. (A jar that a running service has open cannot be replaced on Windows: stop that service first.)
@@ -51,7 +51,7 @@ Rebuild and deploy again (stop the service first):
 
 ```
 mvn install
-mvn package alka:deploy -Dalka.home=C:\path\to\alka-0.1.0\home
+mvn package alka:deploy -Dalka.home=C:\path\to\alka-0.2.0\home
 ```
 
 ## 5. When something is wrong
@@ -68,7 +68,7 @@ You do not need the archetype to start. The pom of a plugin is only this:
 <parent>
     <groupId>com.alkadev</groupId>
     <artifactId>alka-plugin-parent</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </parent>
 
 <artifactId>myplugin</artifactId>

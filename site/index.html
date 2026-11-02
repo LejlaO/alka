@@ -35,8 +35,8 @@
 <section class="intro">
   <h1>Alka runs Java plugins from config files, and shows them in a diagram.</h1>
   <p>You write small components as plain jars. A config file says which ones to load and how they are connected. Alka Studio draws that as a diagram, edits the settings, starts and stops the service and shows its log.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/LejlaO/alka/releases/latest">Download 0.1.0</a> <a class="btn" href="https://github.com/LejlaO/alka/tree/main/docs">Read the docs</a></p>
-  <p class="note">Needs Java 25. It has only been tried on Windows. 0.1.0 is the first public version, so things can still change.</p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/LejlaO/alka/releases/latest">Download 0.2.0</a> <a class="btn" href="https://github.com/LejlaO/alka/tree/main/docs">Read the docs</a></p>
+  <p class="note">Needs Java 21 or newer. It has only been tried on Windows. This is still a 0.x version, so things can change.</p>
   <figure>
     <div class="shot"><img src="img/studio-diagram.png" width="2160" height="1350" alt="Alka Studio with the demo service running: two plugins and a manager in a diagram, the log below"></div>
     <figcaption>The Studio with the demo service running.</figcaption>
@@ -68,11 +68,11 @@
 <section id="start">
   <h2>Try it</h2>
   <ol>
-    <li>Download <code>alka-0.1.0.zip</code> from the <a href="https://github.com/LejlaO/alka/releases/latest">latest release</a> and unzip it.</li>
+    <li>Download <code>alka-0.2.0.zip</code> from the <a href="https://github.com/LejlaO/alka/releases/latest">latest release</a> and unzip it.</li>
     <li>Start <code>studio.bat</code> (<code>./studio.sh</code> on Linux and macOS). Select the service <b>alkaprocessor</b> and press Start. That is the demo: one plugin talks to a manager and passes the answer to a second plugin.</li>
     <li>To make your own, you need Maven 3.9. This makes a project with a manager, a plugin and a service:
 <pre><code>mvn archetype:generate -DarchetypeGroupId=com.alkadev \
-  -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.1.0</code></pre>
+  -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.2.0</code></pre>
     </li>
     <li>Build it and copy it into the <code>home</code> folder of the package. It shows up in the Studio:
 <pre><code>cd myalka
