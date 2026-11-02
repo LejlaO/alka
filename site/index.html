@@ -37,11 +37,18 @@
   <h1>Alka runs Java plugins from config files, and shows them in a diagram.</h1>
   <p>You write small components as plain jars. A config file says which ones to load and how they are connected. Alka Studio draws that as a diagram, edits the settings, starts and stops the service and shows its log.</p>
   <p class="buttons"><a class="btn primary" href="https://github.com/LejlaO/alka/releases/latest">Download 0.2.0</a> <a class="btn" href="https://github.com/LejlaO/alka/tree/main/docs">Read the docs</a></p>
-  <p class="note">Needs Java 21 or newer. It has only been tried on Windows. This is still a 0.x version, so things can change.</p>
+  <p class="note">Needs Java 21 or newer.</p>
   <figure>
     <div class="shot"><img src="img/studio-diagram.png" width="2160" height="1350" alt="Alka Studio with the demo service running: two plugins and a manager in a diagram, the log below"></div>
     <figcaption>The Studio with the demo service running.</figcaption>
   </figure>
+</section>
+
+<section>
+  <h2>Why</h2>
+  <p>Most systems come down to connecting things: inputs, outputs, processes and processing. It can be transactional data, where speed, precision and robustness are not optional, or a set of services that all need the same logic. In both cases what helps is small building blocks that fit together the way you want, when you want.</p>
+  <p>There are two kinds of code in such a system. Some is general, and everybody uses it. Some is written for one customer: it has to fit in, but it is useless to anyone else. Both should plug into the same thing.</p>
+  <p>Alka is a start in that direction: small blocks of code that talk to each other inside one process, with almost zero overhead, and no network or broker between them. It is small, and it leaves a lot open.</p>
 </section>
 
 <section>
@@ -60,6 +67,7 @@
 <section>
   <h2>The Studio</h2>
   <p>Drag a jar onto the diagram, draw a line between two boxes, change a setting, press Start. The Studio writes the config and keeps the older versions of every file. It checks the service before it starts, and shows the log with filters and the numbers of every box while it runs.</p>
+  <p>The Studio is optional. Alka runs completely without it: the engine is started from a script, and the config files are plain text. If you prefer to build and wire everything by hand, you can.</p>
   <figure>
     <div class="shot"><img loading="lazy" src="img/studio-settings.png" width="2160" height="1350" alt="Alka Studio with a plugin selected: its settings as a form on the right"></div>
     <figcaption>A plugin selected: its settings are a form.</figcaption>
