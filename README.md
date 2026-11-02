@@ -4,6 +4,8 @@ Web page: https://alkadev.com
 
 Alka is a small service engine for Java. You write the pieces of a service as **plugins** and **managers** (one jar each), and the engine loads them and runs them from configuration files. **Alka Studio**, a tool in your browser, shows how the pieces are wired, edits their settings, starts and stops the service and shows its log.
 
+![Alka Studio with the demo service running: two plugins and a manager in a diagram, the log below](site/img/studio-diagram.png)
+
 ```
  plugin ──sends events──▶ plugin          a plugin does the work and talks to other plugins
    │
