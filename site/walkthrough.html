@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alka walkthrough</title>
+<meta name="description" content="From an empty folder to a plugin running in Alka Studio, step by step with pictures.">
+<meta name="theme-color" content="#f8f2e6">
+<link rel="canonical" href="https://alkadev.com/walkthrough.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alka walkthrough">
+<meta property="og:description" content="From an empty folder to a plugin running in Alka Studio, step by step with pictures.">
+<meta property="og:url" content="https://alkadev.com/walkthrough.html">
+<meta property="og:image" content="https://alkadev.com/img/walk-6-running.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='15' cy='20' r='11' fill='none' stroke='%23c9731f' stroke-width='4'/%3E%3Ccircle cx='25' cy='20' r='11' fill='none' stroke='%23a8442f' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">Alka</a>
+    <nav aria-label="Main">
+      <a href="walkthrough.html">Walkthrough</a>
+      <a href="https://github.com/LejlaO/alka/tree/main/docs">Docs</a>
+      <a href="https://github.com/LejlaO/alka">GitHub</a>
+      <a href="https://github.com/LejlaO/alka/releases/latest">Download</a>
+    </nav>
+  </div>
+</header>
+<div class="band" aria-hidden="true"></div>
+
+<main class="wrap">
+
+<section class="intro">
+  <h1>From an empty folder to a running plugin</h1>
+  <p>The whole path in eight steps: make a project, build it, put it into Alka, add it to a service in the Studio, connect it, run it and read its log. It takes about ten minutes.</p>
+  <p class="note">You need Java 21, Maven 3.9 and the unzipped <a href="https://github.com/LejlaO/alka/releases/latest">Alka package</a>. If you have never used Maven, <a href="https://github.com/LejlaO/alka/blob/main/docs/getting-started.md">Getting started</a> shows how to install it. Type the commands in a terminal (on Windows the Command Prompt, not PowerShell).</p>
+</section>
+
+<section>
+  <h2>1. Make the project</h2>
+  <p>This makes a project with a manager, a plugin and a service, from a template (an archetype):</p>
+<pre><code>mvn archetype:generate -DarchetypeGroupId=com.alkadev -DarchetypeArtifactId=alka-sample-archetype -DarchetypeVersion=0.2.0</code></pre>
+  <p>Maven asks for a group id and an artifact id. Type <code>com.example</code> and <code>funnybunny</code>, and press Enter for the rest. You get a folder <code>funnybunny</code>.</p>
+</section>
+
+<section>
+  <h2>2. Build it</h2>
+<pre><code>cd funnybunny
+mvn install</code></pre>
+  <p>At the end Maven prints <code>BUILD SUCCESS</code>:</p>
+<pre><code>[INFO] funnybunny ......................... SUCCESS
+[INFO] funnybunny-manager ................. SUCCESS
+[INFO] funnybunny-plugin .................. SUCCESS
+[INFO] funnybunny-service ................. SUCCESS
+[INFO] BUILD SUCCESS</code></pre>
+</section>
+
+<section>
+  <h2>3. Put it into Alka</h2>
+  <p>The Alka package has a folder <code>home</code>. Give Maven its full path:</p>
+<pre><code>mvn package alka:deploy -Dalka.home=C:\alka-0.2.0\home</code></pre>
+  <p>It copies the jars of the manager and the plugin into the home, and the settings template of each one (the output is shortened):</p>
+<pre><code>[INFO]   libs/plugin/funnybunny-manager.jar
+[INFO]   libs/plugin/funnybunny-plugin.jar
+[INFO]   config/templates/funnybunny-plugin.properties
+[INFO] Alka deploy: 2 files copied into C:\alka-0.2.0\home.</code></pre>
+  <p>The project also made a small service of its own, <code>funnybunny</code>, and the deploy copies that too. Here we do something more useful: we add the new jars to the demo service that is already in the package.</p>
+</section>
+
+<section>
+  <h2>4. Open the Studio</h2>
+  <p>Start <code>studio.bat</code> (<code>./studio.sh</code> on Linux and macOS) in the package folder. In the <b>Components</b> tab on the left the two new jars are in the list: <code>funnybunny-plugin.jar</code> and <code>funnybunny-manager.jar</code>. The diagram is the demo service <code>alkaprocessor</code>.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-1-palette.png" width="2160" height="1350" alt="Alka Studio, Components tab: the two new jars are listed under plugins and managers, the demo service is in the diagram"></div>
+    <figcaption>The new jars are in the list.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>5. Drag them onto the diagram</h2>
+  <p>Drag <code>funnybunny-plugin.jar</code> from the list onto the diagram and let go. A panel on the right asks for a name. Keep it and press <b>Add</b>.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-2-drop-plugin.png" width="2160" height="1350" alt="A jar dragged onto the diagram: a dashed box shows where it lands, and the panel on the right asks for its name"></div>
+    <figcaption>The dashed box is where the plugin will be.</figcaption>
+  </figure>
+  <p>Do the same with <code>funnybunny-manager.jar</code>.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-3-drop-manager.png" width="2160" height="1350" alt="The manager jar dragged onto the diagram, the plugin is already in it"></div>
+    <figcaption>The plugin is in. Now the manager.</figcaption>
+  </figure>
+  <p>Each <b>Add</b> writes a line into the config of the service. The jar is copied into the folder of the service if it is not there yet.</p>
+</section>
+
+<section>
+  <h2>6. Connect them</h2>
+  <p>A line is drawn from one small mark to another:</p>
+  <ul>
+    <li>From the diamond at the bottom of <code>funnybunny-plugin</code> to <code>funnybunny-manager</code>: the plugin uses that manager.</li>
+    <li>From the arrow on the right of <code>sampleplugin</code> to the arrow on the left of <code>funnybunny-plugin</code>: what <code>sampleplugin</code> sends on goes to the new plugin.</li>
+  </ul>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-4-wired.png" width="2160" height="1350" alt="The diagram with the new plugin and manager connected to the demo service"></div>
+    <figcaption>The new plugin receives from <code>sampleplugin</code> and uses its own manager.</figcaption>
+  </figure>
+  <p>The Studio wrote this into <code>config/services/alkaprocessorConfig.properties</code> for you. You could have typed the same four lines:</p>
+<pre><code>alkaprocessor.plugin.funnybunny-plugin=funnybunny-plugin.jar
+alkaprocessor.manager.funnybunny-manager=funnybunny-manager.jar
+alkaprocessor.addmanager.funnybunny-plugin=funnybunny-manager
+alkaprocessor.map.sampleplugin=sampleplugin2,funnybunny-plugin</code></pre>
+</section>
+
+<section>
+  <h2>7. Validate and run</h2>
+  <p><b>Validate</b> checks the config, the jars and the wiring and says in words what is wrong. Here it says the service is valid, and the button becomes <b>Run</b>.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-5-valid.png" width="2160" height="1350" alt="The Studio says Valid, you can run the service now, and the Validate button has become Run"></div>
+    <figcaption>Valid. Nothing to fix.</figcaption>
+  </figure>
+  <p>Press <b>Run</b>. The service starts, and the boxes show numbers while it runs. Select <code>funnybunny-plugin</code> and the panel on the right shows its settings and its live state: here it has received three events.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-6-running.png" width="2160" height="1350" alt="The service running: every box shows how many events it received and sent, the new plugin is selected"></div>
+    <figcaption>The service is running. <code>funnybunny-plugin</code> has received 3 events.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>8. Read the log</h2>
+  <p>The log is below the diagram. Type <code>funnybunny-plugin</code> in the search field and only its lines are left. Every two seconds the plugin greets its manager and logs the answer, and every event that <code>sampleplugin</code> sends on shows up as <code>accepted</code>.</p>
+  <figure>
+    <div class="shot"><img loading="lazy" src="img/walk-7-log.png" width="2160" height="1350" alt="The log filtered to funnybunny-plugin: its greetings to the manager and the events it accepted"></div>
+    <figcaption>The log of one plugin.</figcaption>
+  </figure>
+  <p>That is all. Press <b>Stop</b> when you are done.</p>
+</section>
+
+<section>
+  <h2>What next</h2>
+  <ul>
+    <li>Change what the plugin does: <a href="https://github.com/LejlaO/alka/blob/main/docs/your-first-plugin.md">Your first plugin</a>.</li>
+    <li>Write the manager, the plugin and the service by hand, without the template: <a href="https://github.com/LejlaO/alka/blob/main/docs/from-scratch.md">A manager, a plugin and a service from scratch</a>.</li>
+    <li>How the parts fit together: <a href="https://github.com/LejlaO/alka/blob/main/docs/how-it-works.md">How Alka works</a>.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Lejla Omerovic</span>
+    <nav aria-label="Links">
+      <a href="https://github.com/LejlaO/alka">GitHub</a>
+      <a href="https://github.com/LejlaO/alka/tree/main/docs">Docs</a>
+      <a href="https://central.sonatype.com/namespace/com.alkadev">Maven Central</a>
+      <a href="https://github.com/LejlaO/alka/issues">Issues</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

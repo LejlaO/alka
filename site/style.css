@@ -41,6 +41,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 nav { margin-left: auto; display: flex; gap: 22px; }
 nav a { color: var(--ink2); text-decoration: none; font-size: 16px; }
 nav a:hover { color: var(--ink); text-decoration: underline; }
+@media (max-width: 520px) { nav { gap: 14px; } nav a { font-size: 15px; } }
 .band { height: 16px; background-color: var(--soft); border-block: 1px solid var(--line); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16'%3E%3Cpath d='M16 1 L24 8 L16 15 L8 8 Z' fill='none' stroke='%23b88a7c' stroke-width='1.6'/%3E%3C/svg%3E"); background-size: 32px 16px; }
 
 main { padding-bottom: 40px; }
@@ -62,6 +63,7 @@ figcaption { color: var(--ink2); font-size: 15px; margin-top: 8px; }
 pre { margin: 14px 0 6px; background: var(--code-bg); color: var(--code-ink); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font: 14.5px/1.6 var(--mono); max-width: 100%; }
 code { font-family: var(--mono); font-size: .9em; background: var(--soft); padding: 1px 5px; border-radius: 4px; }
 pre code { background: none; padding: 0; font-size: inherit; }
+p code, li code { overflow-wrap: anywhere; }
 .k { color: #e6a85c; } .c { color: #9c8a78; } .s { color: #b9c97a; }
 
 ol { padding-left: 24px; }
